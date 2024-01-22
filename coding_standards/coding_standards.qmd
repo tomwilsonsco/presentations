@@ -1,0 +1,311 @@
+---
+title: Coding Standards for R and Python
+author: Tom Wilson
+date: 4 October 2023
+format: 
+  revealjs:
+    slide-number: true
+    self-contained: true
+    footer: Coding Standards for R and Python
+editor: visual
+---
+
+## Contents
+
+![](images/R_logo.png){.absolute top="-10" right="500" width="100" fig-alt="The R programming language logo"} ![](images/Python_logo.png){.absolute top="5" right="250" width="200" fig-alt="The Python programming language logo"}
+
+-   What are coding standards?
+-   Why apply standards to your code?
+-   Style guides typically used for R and Python.
+-   Code formatting and linting tools.
+-   Precommit and continuous integration.
+-   Creating documentation.
+
+Some suggestions, not a definitive guide to the above!
+
+## What are coding standards?
+
+Guidelines and best practices for writing clean, consistent, maintainable code. They include:
+
+::: incremental
+-   **Naming conventions** for variables, functions, classes, files.
+-   **Formatting** rules to make your code easier to read.
+-   **Documenting and commenting** standards.\
+-   **Best practices** for writing efficient code, reducing errors.
+
+<br>
+
+Coding standards are often described in **Style Guides**.
+:::
+
+## Why apply a coding standard?
+
+*"Code is read much more often than it is written"*\
+Guido van Rossum
+
+::: incremental
+-   To make your code more readable.
+-   Therefore more easily understood.
+-   Therefore more likely to find reviewers, collaborators.
+-   Make your code look more professional.
+-   It saves you inventing your own conventions.
+:::
+
+## Style Guides
+
+::: {layout-ncol="2"}
+![](images/R_logo.png){fig-align="left" fig-alt="The R programming language logo" width="200"}
+
+![](images/python_logo.png){fig-align="left" fig-alt="The Python programming language logo"}
+:::
+
+::: {layout-ncol="2"}
+::: {#first-column}
+-   [Tidyverse Style Guide](https://style.tidyverse.org/){preview-link="true"}
+-   [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html){preview-link="true"}
+:::
+
+::: {#second-column}
+-   [PEP 8](https://peps.python.org/pep-0008){preview-link="true"}
+-   [Google's Python Style Guide](https://google.github.io/styleguide/pyguide.html){preview-link="true"}
+-   [Black](https://black.readthedocs.io/en/stable/the_black_code_style/index.html){preview-link="true"}
+:::
+:::
+
+## Tidyverse Style Guide {.smaller}
+
+![](images/R_logo.png){.absolute top="-30" right="350" width="100" fig-alt="The R programming language logo"}
+
+Some of its syntax suggestions:
+
+::: incremental
+-   Variables and function names should only contain lowercase letters, numbers and \_
+-   Always use `<-` not `=` for variable assignment
+-   One space after commas and either side of assignment `<-` `=` and comparators like `>` `<` `==` etc
+-   Keep to lines to max 80 characters
+-   Use `"` not `'` for quoting text
+-   When using `function`, `if`, `for`, `while`:
+    -   Opening `{` should be last character on a line
+    -   Then two space indent
+    -   Closing `}` should be first character on a line
+:::
+
+## Tidyverse Style Guide {#tidyverse-style-guide-1 .smaller}
+
+![](images/R_logo.png){.absolute top="-30" right="350" width="100" fig-alt="The R programming language logo"}
+
+A simple example:
+
+```{r echo=TRUE}
+#| output: false
+#| code-line-numbers: 1-8|9-18|
+# Ignoring TidyVerse Style Guide ----
+myVector=c(10,20,30)
+
+myCalc=function(x,Multiplier){x*Multiplier}
+
+myCalc(myVector,Multiplier=10)
+
+
+# Applying TidyVerse Style Guide ----
+my_vector <- c(10, 20, 30)
+
+my_calc <- function(x, multiplier) {
+  x * multiplier
+}
+
+my_calc(my_vector, multiplier = 10)
+```
+
+## PEP 8 {.smaller}
+
+![](images/python_logo.png){.absolute top="-5" right="600" width="200" fig-alt="The Python programming language logo"}
+
+Some of its requirements:
+
+::: incremental
+-   Lowercase variable and function names with words separated by underscores
+-   Classes should start each word with a capital and no spaces (CapWords case)
+-   Use four spaces for indentation (not tab)
+-   Spaces around operators and after commas, but not directly inside parentheses or brackets
+-   A maximum line length of 79 characters (72 for comments or docstrings)
+-   Functions should have a docstring that explains what the function does, its arguments, and its return value
+:::
+
+## PEP 8 {.smaller}
+
+![](images/python_logo.png){.absolute top="-5" right="600" width="200" fig-alt="The Python programming language logo"}
+
+A simple example:
+
+```{python echo=TRUE, eval=FALSE}
+#| code-line-numbers: 1-3|5-16|
+# Multiplies input by a multiiplier
+def Multiply(inputVal,MultiplierVal=10):
+ return inputVal*MultiplierVal
+
+def multiply(input_val, multiplier_val=10):
+    """Multiplies an input by a multiplier.
+
+    Args:
+        input_val: The input value.
+        multiplier_val: The multiplier value.
+
+    Returns:
+        The product of the input value and the multiplier value.
+    """
+
+    return input_val * muliplier_val
+```
+
+There is a separate PEP for docstrings see [PEP 257](https://peps.python.org/pep-0257/)
+
+## Tools to help {.smaller}
+
+-   **Code formatters**
+
+    -   reformat code to match a particular style.
+    -   mostly spacing, indentation, line length, not renaming variables!
+
+-   **Code linters**
+
+    -   flag potential bugs, poor practice, style violations.
+    -   linters do not change the code, but inform of problems. <br> <br>
+
+    ```{r}
+    #| tbl-colwidths: [33,33,33]
+    df <- data.frame(
+      Tool = c("Formatter", "Linter"),
+      R = c("[styler](https://www.tidyverse.org/blog/2017/12/styler-1.0.0/), [formatR](https://yihui.org/formatr/)", "[lintr](https://lintr.r-lib.org/)"),
+      Python = c(
+    "[autopep8](https://pypi.org/project/autopep8/), [Black](https://black.readthedocs.io/en/stable/)",
+    "[Flake8](https://flake8.pycqa.org/en/latest/), [pylint](https://pypi.org/project/pylint/)"
+      )
+    )
+    knitr::kable(df, col.names = c("Tool Type", "R Packages", "Python Packages"))
+    ```
+
+## styler and lintr {.smaller}
+
+![](images/R_logo.png){.absolute top="-25" right="525" width="100" fig-alt="The R programming language logo"}
+
+Use these tools from the R Studio Addins menu once the packages are installed.
+
+![](images/styler.png){fig-alt="R Studio Addin menu for styler"} ![](images/lintr.png){fig-alt="R Studio Addin menu for lintr"}
+
+In R Studio any issues flagged by `lintr` are shown in a Markers tab:
+
+![](images/lintr_output.png){fig-alt="Example output from running lintr on R code"}
+
+Unfortunately R Studio does not have on save option for running formatters. See pre-commit hook if using Git.
+
+## Black and pylint {.smaller}
+
+![](images/python_logo.png){.absolute top="-10" right="350" width="200" fig-alt="The Python programming language logo"} After installing the packages with `pip` or `conda` can apply formatting or linting checks using a terminal:
+
+![](images/black.png){fig-alt="An example of running black in a terminal"} ![](images/pylint.png){fig-alt="An example of running pylint in a terminal"}
+
+However, an easier way to use these tools is within an IDE such as VS Code, PyCharm.
+
+## Formatting and linting in VS Code {.smaller}
+
+![](images/vscode.png){.absolute top="-5" right="50" width="50" fig-alt="The Visual Studio Code Symbol"}
+
+-   VS Code has code formatter and linter extensions for Python.
+
+-   Linting and formatting tools can be configured to run every time save.
+
+![](images/black_vscode.png){fig-alt="The VS Code extension for installing Black"} ![](images/pylint_vscode.png) ![](images/flake8.png){fig-alt="The VS Code extension for installing Flake 8"}
+
+-   VS Code also has a useful extension for automatically generating function docstrings.
+
+![](images/docstring_creator.png){fig-alt="The VS Code extension for installing Docstring Creator"}
+
+## Pre-commit Hooks {.smaller}
+
+-   Part of a git workflow. Pre-commit hooks ensure code meets certain standards before it is committed.
+-   Checks are specified in a `.pre-commit-config.yaml` file in the code repository.
+-   These checks can include the formatting and linting tools described previously.
+-   For Python see [pre-commit](https://pre-commit.com/).
+-   For R it's a bit more complicated to setup. Python [pre-commit](https://pre-commit.com/) must also be installed. The R package [precommit](https://github.com/lorenzwalthert/precommit) has a useful [setup article](https://lorenzwalthert.github.io/precommit/articles/precommit.html).
+
+![](images/pre-commit.png){.absolute width="60%" fig-alt="An example pre-commit config yaml file text"}
+
+## Continuous Integration (CI) {.smaller}
+
+-   Automated builds and tests are run when code changes are pushed to a central repository.
+-   GitHub Actions might be used to run a specific formatter or linter as part of a CI pipeline.
+
+![](images/GitHub_actions.png){.absolute width="50%" fig-alt="The GitHub Actions Symbol and GitHub description of it"}
+
+<br> <br> <br> <br>
+
+-   GitHub Actions can be configured to run when opening a GitHub Pull Request.
+-   GitHub Actions can be configured so cannot merge a branch unless the checks pass.
+-   This is an advanced topic. Other CI tools are available Travis CI, Jenkins.
+
+## Creating Documention {.smaller}
+
+Both R and Python have specific ways to document functions (and classes in Python).
+
+-   Python Docstrings are wrapped in `"""`. See [PEP 257](https://peps.python.org/pep-0257/).
+-   Docstrings go directly under `def function_name:`
+
+For example:
+
+```{python echo=TRUE}
+def multiply(input_val, multiplier_val=10):
+  """Multiplies an input by a multiplier.
+
+  Args:
+    input_val: The input value.
+    multiplier_val: The multiplier value.
+
+  Returns:
+    The product of the input value and the multiplier value.
+  """
+  return input_val * muliplier_val
+```
+
+-   With Python can see the documentation for a function using `print(my_function_name.__doc__)`
+
+## Function Documentation R {.smaller}
+
+-   For R functions add Roxygen comments to document them.
+-   Using R Studio insert a Roxygen template (R Studio \> Code menu \> Insert Roxygen Skeleton).
+
+```{r echo=TRUE}
+#' My calculation
+#'
+#' @param x numeric vector or number to be multiplied.
+#' @param multiplier the scaler value to multiply x by.
+#'
+#' @return scaled value
+#' @export
+#'
+#' @examples
+#' my_calc(c(1, 2, 3), 10)
+my_calc <- function(x, multiplier) {
+  x * multiplier
+}
+```
+
+-   When developing an R package `roxygen2::roxygenise()` is used to generate the documentation `.Rd` files from the roxygen comments.
+-   See documentation section of the [Tidyverse Style Guide](https://style.tidyverse.org/documentation.html) and also in the [R Packages online book](https://r-pkgs.org/man.html).
+
+## Summary
+
+::: incremental
+-   Try to follow a style guide for your code.
+
+-   For R, see [Tidyverse Style Guide](https://style.tidyverse.org/). Python has [PEP 8](https://peps.python.org/pep-0008).
+
+-   Code formatters automatically reformat parts (but not all) of your code to match a style guide.
+
+-   Code linters run checks on style, best practices, errors.
+
+-   See Reproducible Analytical Pipelines (RAP). Useful:
+
+    -   [Duck Book](https://best-practice-and-impact.github.io/qa-of-code-guidance/readable_code.html)
+    -   [The Turing Way Guide for Reproducible Research](https://the-turing-way.netlify.app/reproducible-research/code-quality/code-quality-style)
+:::
