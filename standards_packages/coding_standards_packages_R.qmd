@@ -1,0 +1,228 @@
+---
+title: Coding standards and creating packages in R
+author: Tom Wilson
+date: October 2024
+format: 
+  revealjs:
+    slide-number: true
+    self-contained: true
+    footer: Coding standards and creating packages in R
+editor: visual
+---
+
+## Contents
+
+![](images/R_logo.png){.absolute top="0" right="500" width="100" fig-alt="The R programming language logo"}
+
+-   What are coding standards and why use them?
+-   Style guides for R.
+-   Code formatting and linting tools.
+-   Creating documentation.
+-   Creating an R package.
+
+## What are coding standards?
+
+Guidelines and best practices for writing clean, consistent, maintainable code. They include:
+
+::: incremental
+-   **Naming conventions** for variables, functions, classes, files.
+-   **Formatting** rules to make your code easier to read.
+-   **Documenting and commenting** standards.\
+-   **Best practices** for writing efficient code, reducing errors.
+
+<br>
+
+Coding standards are often described in **Style Guides**.
+:::
+
+## Why use coding standards?
+
+*"Code is read much more often than it is written"*\
+Guido van Rossum
+
+::: incremental
+-   To make your code more readable.
+-   Therefore more easily understood.
+-   Therefore more likely to find reviewers, collaborators.
+-   Make your code look more professional.
+-   It saves you inventing your own conventions.
+:::
+
+## Style Guides {.smaller}
+
+![](images/R_logo.png){.absolute top="0" right="550" width="100" fig-alt="The R programming language logo"}
+
+-   [Tidyverse Style Guide](https://style.tidyverse.org/){preview-link="true"}
+-   [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html){preview-link="true"}
+
+## Tidyverse Style Guide {.smaller}
+
+![](images/R_logo.png){.absolute top="0" right="350" width="100" fig-alt="The R programming language logo"}
+
+Some of its syntax suggestions:
+
+::: incremental
+-   Variables and function names should only contain lowercase letters, numbers and \_
+-   Always use `<-` not `=` for variable assignment
+-   One space after commas and either side of assignment `<-` `=` and comparators like `>` `<` `==` etc
+-   Keep to lines to max 80 characters
+-   Use `"` not `'` for quoting text
+-   When using `function`, `if`, `for`, `while`:
+    -   Opening `{` should be last character on a line
+    -   Then two space indent
+    -   Closing `}` should be first character on a line
+:::
+
+## Tidyverse Style Guide {#tidyverse-style-guide-1 .smaller}
+
+![](images/R_logo.png){.absolute top="0" right="350" width="100" fig-alt="The R programming language logo"}
+
+A simple example:
+
+```{r echo=TRUE}
+#| output: false
+#| code-line-numbers: 1-8|9-18|
+# Ignoring TidyVerse Style Guide ----
+myVector=c(10,20,30)
+
+myCalc=function(x,Multiplier){x*Multiplier}
+
+myCalc(myVector,Multiplier=10)
+
+
+# Applying TidyVerse Style Guide ----
+my_vector <- c(10, 20, 30)
+
+my_calc <- function(x, multiplier) {
+  x * multiplier
+}
+
+my_calc(my_vector, multiplier = 10)
+```
+
+## Tools to help {.smaller}
+
+-   **Code formatters**
+
+    -   reformat code to match a particular style.
+    -   mostly spacing, indentation, not renaming variables!
+
+-   **Code linters**
+
+    -   flag potential bugs, poor practice, style violations.
+    -   linters do not change the code, but inform of problems. <br> <br>
+
+    ```{r}
+#| tbl-colwidths: [50, 50]
+df <- data.frame(
+  Tool = c("Formatter", "Linter"),
+  R = c("[styler](https://styler.r-lib.org/index.html), [formatR](https://yihui.org/formatr/)", "[lintr](https://lintr.r-lib.org/)")
+)
+knitr::kable(df, col.names = c("Tool Type", "R Packages"))
+    ```
+
+## styler and lintr {.smaller}
+
+![](images/R_logo.png){.absolute top="0" right="525" width="100" fig-alt="The R programming language logo"}
+
+Use these tools from the R Studio Addins menu once the packages are installed.
+
+![](images/styler.png){fig-alt="R Studio Addin menu for styler"} ![](images/lintr.png){fig-alt="R Studio Addin menu for lintr"}
+
+In R Studio any issues flagged by `lintr` are shown in a Markers tab:
+
+![](images/lintr_output.png){fig-alt="Example output from running lintr on R code"}
+
+Unfortunately R Studio does not have on save option for running formatters.
+
+## Continuous Integration (CI) {.smaller}
+
+-   Automated builds and tests are run when code changes are pushed to a central repository.
+-   GitHub Actions might be used to run a specific formatter or linter as part of a CI pipeline.
+
+![](images/GitHub_actions.png){.absolute width="50%" fig-alt="The GitHub Actions Symbol and GitHub description of it"}
+
+<br> <br> <br> <br>
+
+-   GitHub Actions can be configured to run when opening a GitHub Pull Request.
+-   GitHub Actions can be configured so cannot merge a branch unless the checks pass.
+-   This is an advanced topic. Other CI tools are available Travis CI, Jenkins.
+
+## Creating Documention in R {.smaller}
+
+-   For R functions add Roxygen comments to document them.
+-   Using R Studio insert a Roxygen template (R Studio \> Code menu \> Insert Roxygen Skeleton).
+
+```{r echo=TRUE}
+#' My calculation
+#'
+#' @param x numeric vector or number to be multiplied.
+#' @param multiplier the scaler value to multiply x by.
+#'
+#' @return scaled value
+#' @export
+#'
+#' @examples
+#' my_calc(c(1, 2, 3), 10)
+my_calc <- function(x, multiplier) {
+  x * multiplier
+}
+```
+
+-   When developing an R package `roxygen2::roxygenise()` is used to generate the documentation `.Rd` files from the roxygen comments.
+-   See documentation section of the [Tidyverse Style Guide](https://style.tidyverse.org/documentation.html) and also in the [R Packages online book](https://r-pkgs.org/man.html).
+
+## What is an R Package? {.smaller}
+
+-   A package is what install from [CRAN](https://cran.r-project.org/) (or an internal server) with `install.packages()` and load with `library()`.
+-   Bundles R code within functions so its usable by others after they install and load the package.
+-   A package can include documentation, sample data, test scripts.
+-   It is surprisingly easy to create an R package.
+
+## Why create an R Package? {.smaller}
+
+-   Sharing: Make processes you have developed easily accessible to others by installing the package, not copying and pasting code or script files.
+-   Reusability: Packages will usually bundle functionality that may be used across many projects.
+-   Clarity: R packages all follow a similar format in where R code is stored, how documentation is created, how test scripts are written. Instead of each person inventing their own way.
+-   Knowledge: Developing an R package leads to a better understanding of how R works.
+
+## Reference materials for creating an R package {.smaller}
+
+-   [R Packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan. Easy to follow introductory guide, based around [devtools](https://cran.r-project.org/web/packages/devtools/index.html) and related libraries.
+-   [Writing R Extensions](https://cran.r-project.org/doc/manuals/R-exts.html). Definitive guide on CRAN for reference.
+
+## R packages to help to create a package {.smaller}
+
+-   [devtools](https://cran.r-project.org/web/packages/devtools/index.html) a bit like a 'tidyverse' for package development.
+-   [usethis](https://cran.r-project.org/web/packages/usethis/index.html) automating package setup and configuration tasks.
+-   [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html) documentation and management of package metadata files.
+-   [testthat](https://cran.r-project.org/web/packages/testthat/index.html) formal unit testing of packages.
+
+## Examples {.smaller}
+
+-  Many popular R packages have their code open on GitHub. For example [dplyr](https://github.com/tidyverse/dplyr)
+
+Some examples of packages developed and used in Scottish Government:
+
+-  [sgplot](https://github.com/scotgovanalysis/sgplot)
+
+-  [RtoSQLServer](https://github.com/scotgovanalysis/RtoSQLServer)
+
+-  [opendatascot](https://github.com/ScotGovAnalysis/opendatascot)
+
+
+## Summary {.smaller}
+
+::: incremental
+-  Try to follow a style guide for your code.
+
+-  For R, see [Tidyverse Style Guide](https://style.tidyverse.org/).
+
+-   Code formatters automatically reformat parts (but not all) of your code to match a style guide. See [styler](https://styler.r-lib.org/index.html) package.
+
+-   Code linters run checks on style, best practices, errors. See [lintr](https://lintr.r-lib.org/) package.
+
+-   Creating an R package is the best way to make a process you have developed available to others. 
+
+-   R packages are not difficult to create. Recommend reading [R Packages](https://r-pkgs.org/).
+:::
