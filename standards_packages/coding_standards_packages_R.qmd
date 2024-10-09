@@ -46,6 +46,7 @@ Guido van Rossum
 -   Therefore more likely to find reviewers, collaborators.
 -   Make your code look more professional.
 -   It saves you inventing your own conventions.
+-   **Most importantly, be consistent!**
 :::
 
 ## Style Guides {.smaller}
@@ -113,12 +114,12 @@ my_calc(my_vector, multiplier = 10)
     -   linters do not change the code, but inform of problems. <br> <br>
 
     ```{r}
-#| tbl-colwidths: [50, 50]
-df <- data.frame(
-  Tool = c("Formatter", "Linter"),
-  R = c("[styler](https://styler.r-lib.org/index.html), [formatR](https://yihui.org/formatr/)", "[lintr](https://lintr.r-lib.org/)")
-)
-knitr::kable(df, col.names = c("Tool Type", "R Packages"))
+    #| tbl-colwidths: [50, 50]
+    df <- data.frame(
+      Tool = c("Formatter", "Linter"),
+      R = c("[styler](https://styler.r-lib.org/index.html), [formatR](https://yihui.org/formatr/)", "[lintr](https://lintr.r-lib.org/)")
+    )
+    knitr::kable(df, col.names = c("Tool Type", "R Packages"))
     ```
 
 ## styler and lintr {.smaller}
@@ -175,7 +176,7 @@ my_calc <- function(x, multiplier) {
 ## What is an R Package? {.smaller}
 
 -   A package is what install from [CRAN](https://cran.r-project.org/) (or an internal server) with `install.packages()` and load with `library()`.
--   Bundles R code within functions so its usable by others after they install and load the package.
+-   Bundles R code within functions so they are usable by others after they install and load the package.
 -   A package can include documentation, sample data, test scripts.
 -   It is surprisingly easy to create an R package.
 
@@ -200,29 +201,28 @@ my_calc <- function(x, multiplier) {
 
 ## Examples {.smaller}
 
--  Many popular R packages have their code open on GitHub. For example [dplyr](https://github.com/tidyverse/dplyr)
+-   Many popular R packages have their code open on GitHub. For example [dplyr](https://github.com/tidyverse/dplyr)
 
 Some examples of packages developed and used in Scottish Government:
 
--  [sgplot](https://github.com/scotgovanalysis/sgplot)
+-   [sgplot](https://github.com/scotgovanalysis/sgplot)
 
--  [RtoSQLServer](https://github.com/scotgovanalysis/RtoSQLServer)
+-   [RtoSQLServer](https://github.com/scotgovanalysis/RtoSQLServer)
 
--  [opendatascot](https://github.com/ScotGovAnalysis/opendatascot)
-
+-   [opendatascot](https://github.com/ScotGovAnalysis/opendatascot)
 
 ## Summary {.smaller}
 
 ::: incremental
--  Try to follow a style guide for your code.
+-   Try to follow a style guide for your code and have a consistent approach.
 
--  For R, see [Tidyverse Style Guide](https://style.tidyverse.org/).
+-   For R, see [Tidyverse Style Guide](https://style.tidyverse.org/).
 
 -   Code formatters automatically reformat parts (but not all) of your code to match a style guide. See [styler](https://styler.r-lib.org/index.html) package.
 
 -   Code linters run checks on style, best practices, errors. See [lintr](https://lintr.r-lib.org/) package.
 
--   Creating an R package is the best way to make a process you have developed available to others. 
+-   Creating an R package is the best way to make a process you have developed available to others.
 
 -   R packages are not difficult to create. Recommend reading [R Packages](https://r-pkgs.org/).
 :::
