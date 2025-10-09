@@ -46,9 +46,10 @@ Guido van Rossum
 ::: incremental
 -   To make your code more readable.
 -   Therefore more easily understood.
--   Therefore more likely to find reviewers, collaborators.
--   Make your code look more professional.
--   It saves you inventing your own conventions.
+-   Therefore easier to collaborate with others.
+-   Easier for reviewers to understand and provide insightful feedback.
+-   It improves the reproducibility and reusability of code.
+-   It makes your code look more professional.
 :::
 
 ## Style Guides
@@ -293,10 +294,9 @@ my_calc <- function(x, multiplier) {
 -   When developing an R package `roxygen2::roxygenise()` is used to generate the documentation `.Rd` files from the roxygen comments.
 -   See documentation section of the [Tidyverse Style Guide](https://style.tidyverse.org/documentation.html) and also in the [R Packages online book](https://r-pkgs.org/man.html).
 
-
 ## Try to be consistent
 
-If not specified in your organisation, decide upon your (team's) standards and apply them consistently to your projects. 
+If not specified in your organisation, decide upon your (team's) standards and apply them consistently to your projects.
 
 For example:
 
@@ -304,7 +304,6 @@ For example:
 -   Code style and linting checks that should pass.
 -   How code is commented and documented.
 -   Packages used.
-
 
 ## Summary
 
