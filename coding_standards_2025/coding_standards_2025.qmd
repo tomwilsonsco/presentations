@@ -21,7 +21,7 @@ editor: visual
 -   Precommit and continuous integration.
 -   Creating documentation.
 
-The aim is to provide some suggestions you can use where appropriate.
+This will be a brief overview and includes some resources you can use to learn more.
 
 ## What are coding standards?
 
@@ -294,7 +294,7 @@ my_calc <- function(x, multiplier) {
 -   When developing an R package `roxygen2::roxygenise()` is used to generate the documentation `.Rd` files from the roxygen comments.
 -   See documentation section of the [Tidyverse Style Guide](https://style.tidyverse.org/documentation.html) and also in the [R Packages online book](https://r-pkgs.org/man.html).
 
-## Try to be consistent
+## General suggestion: Be consistent
 
 If not specified in your organisation, decide upon your (team's) standards and apply them consistently to your projects.
 
@@ -304,6 +304,7 @@ For example:
 -   Code style and linting checks that should pass.
 -   How code is commented and documented.
 -   Packages used.
+-   How code is tested before being used in a production process.
 
 ## Summary
 
