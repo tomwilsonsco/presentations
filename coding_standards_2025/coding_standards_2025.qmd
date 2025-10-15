@@ -294,11 +294,11 @@ my_calc <- function(x, multiplier) {
 -   When developing an R package `roxygen2::roxygenise()` is used to generate the documentation `.Rd` files from the roxygen comments.
 -   See documentation section of the [Tidyverse Style Guide](https://style.tidyverse.org/documentation.html) and also in the [R Packages online book](https://r-pkgs.org/man.html).
 
-## General suggestion: Be consistent
+## Setting coding standards
 
-If not specified in your organisation, decide upon your (team's) standards and apply them consistently to your projects.
+If not specified in your organisation, decide upon your (team's) standards and apply them **consistently** to your projects.
 
-For example:
+This might include:
 
 -   Project directory structure and file naming conventions.
 -   Code style and linting checks that should pass.
